@@ -14,19 +14,23 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Login: Form submitted');
         setError('');
         setLoading(true);
 
         try {
+            console.log('Login: Sending request to /users/login...');
             const response = await api.post('/users/login', {
                 email,
                 password
             });
+            console.log('Login: Success!', response.data);
 
             login(response.data);
             navigate('/pos');
         } catch (err) {
-            setError(err.response?.data?.error || 'Erro ao fazer login');
+            console.error('Login: Failed', err);
+            setError(err.response?.data?.error || `Erro: ${err.message}`);
         } finally {
             setLoading(false);
         }
