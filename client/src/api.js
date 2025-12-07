@@ -1,10 +1,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://unhappy-carmine-waterlog.ngrok-free.dev', // Hardcoded for debugging
-    timeout: 10000, // 10s timeout
+    baseURL: 'https://loose-areas-prove.loca.lt', // LocalTunnel URL
+    timeout: 10000,
     headers: {
-        'ngrok-skip-browser-warning': 'true',
         'Content-Type': 'application/json'
     }
 });
