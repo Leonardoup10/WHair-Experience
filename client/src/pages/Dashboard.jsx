@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { DollarSign, TrendingUp, Calendar, ArrowUpRight, Clock, Search, Filter, Scissors, Package, X } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -25,9 +25,9 @@ const Dashboard = () => {
     const fetchData = async () => {
         try {
             const [commRes, salesRes, profRes] = await Promise.all([
-                axios.get(import.meta.env.VITE_API_URL + '/dashboard/commissions'),
-                axios.get(import.meta.env.VITE_API_URL + '/sales'),
-                axios.get(import.meta.env.VITE_API_URL + '/professionals')
+                api.get('/dashboard/commissions'),
+                api.get('/sales'),
+                api.get('/professionals')
             ]);
             setCommissions(commRes.data);
             setSales(salesRes.data);

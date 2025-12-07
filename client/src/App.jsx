@@ -17,7 +17,7 @@ import Login from './pages/Login';
 import axios from 'axios';
 
 // Bypass Ngrok warning page for free tier
-axios.defaults.headers.common['ngrok-skip-browser-warning'] = 'true';
+
 
 // Import icons
 import { LayoutDashboard, Calendar, ShoppingBag, Users as UsersIcon, PieChart, Scissors, UserCircle, Briefcase, DollarSign, Lock, Settings, LogOut, TrendingUp } from 'lucide-react';
