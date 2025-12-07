@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://loose-areas-prove.loca.lt', // LocalTunnel URL
+    baseURL: 'https://floppy-houses-smell.loca.lt', // LocalTunnel URL
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json'
