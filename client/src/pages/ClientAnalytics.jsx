@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Users, Star, MapPin, Calendar, Search, Filter } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
@@ -32,8 +32,8 @@ const ClientAnalytics = () => {
     const fetchData = async () => {
         try {
             const [salesRes, profRes] = await Promise.all([
-                axios.get(import.meta.env.VITE_API_URL + '/sales'),
-                axios.get(import.meta.env.VITE_API_URL + '/professionals')
+                api.get('/sales'),
+                api.get('/professionals')
             ]);
             setSales(salesRes.data);
             setProfessionals(profRes.data);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useAuth } from '../context/AuthContext';
 import { Users, Calendar, DollarSign, CheckCircle, Calculator, Wallet, Trash2 } from 'lucide-react';
 
@@ -27,9 +27,9 @@ const HR = () => {
     const fetchData = async () => {
         try {
             const [profRes, salesRes, transRes] = await Promise.all([
-                axios.get(import.meta.env.VITE_API_URL + '/professionals'),
-                axios.get(import.meta.env.VITE_API_URL + '/sales'),
-                axios.get(import.meta.env.VITE_API_URL + '/transactions')
+                api.get('/professionals'),
+                api.get('/sales'),
+                api.get('/transactions')
             ]);
             setProfessionals(profRes.data.filter(p => p.active));
             setSales(salesRes.data);
@@ -116,7 +116,7 @@ const HR = () => {
 
         setProcessing(true);
         try {
-            await axios.post(import.meta.env.VITE_API_URL + '/transactions', {
+            await api.post('/transactions', {
                 type: 'OUT',
                 description: `Pagamento Comissão - ${new Date(selectedMonth).toLocaleString('default', { month: 'long' })}`,
                 amount: parseFloat(paymentAmount),
@@ -141,7 +141,7 @@ const HR = () => {
 
         setProcessing(true);
         try {
-            await axios.post(import.meta.env.VITE_API_URL + '/transactions', {
+            await api.post('/transactions', {
                 type: 'OUT',
                 description: `Adiantamento - ${new Date().toLocaleDateString()}`,
                 amount: parseFloat(paymentAmount),
@@ -166,7 +166,7 @@ const HR = () => {
 
         setProcessing(true);
         try {
-            await axios.delete(`http://localhost:3001/transactions/${id}`, {
+            await api.delete(`/transactions/${id}`, {
                 params: { user_id: user?.id }
             });
             alert('Lançamento excluído com sucesso!');

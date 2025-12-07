@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Calendar, DollarSign, CreditCard, User, TrendingUp, Wallet, Clock } from 'lucide-react';
 
 const DailySummary = () => {
@@ -14,8 +14,8 @@ const DailySummary = () => {
     const fetchData = async () => {
         try {
             const [salesRes, transRes] = await Promise.all([
-                axios.get(import.meta.env.VITE_API_URL + '/sales'),
-                axios.get(import.meta.env.VITE_API_URL + '/transactions')
+                api.get('/sales'),
+                api.get('/transactions')
             ]);
             setSales(salesRes.data);
             setTransactions(transRes.data);

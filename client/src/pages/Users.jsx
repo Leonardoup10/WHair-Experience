@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useAuth } from '../context/AuthContext';
 import { Users as UsersIcon, UserPlus, Trash2, Edit, Shield, Check, X, Lock } from 'lucide-react';
 
@@ -24,7 +24,7 @@ const UsersPage = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await axios.get(import.meta.env.VITE_API_URL + '/users');
+            const res = await api.get('/users');
             setUsers(res.data);
         } catch (error) {
             console.error('Error fetching users:', error);
@@ -39,9 +39,9 @@ const UsersPage = () => {
             if (editingId) {
                 const dataToUpdate = { ...formData };
                 if (!dataToUpdate.password) delete dataToUpdate.password;
-                await axios.put(`http://localhost:3001/users/${editingId}`, dataToUpdate);
+                await api.put(`/users/${editingId}`, dataToUpdate);
             } else {
-                await axios.post(import.meta.env.VITE_API_URL + '/users', formData);
+                await api.post('/users', formData);
             }
             fetchUsers();
             resetForm();
@@ -65,7 +65,7 @@ const UsersPage = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Tem certeza que deseja excluir este usuário?')) {
             try {
-                await axios.delete(`http://localhost:3001/users/${id}`);
+                await api.delete(`/users/${id}`);
                 fetchUsers();
             } catch (error) {
                 console.error('Error deleting user:', error);

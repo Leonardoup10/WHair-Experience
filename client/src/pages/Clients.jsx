@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Users, Search, Calendar, Star, TrendingUp } from 'lucide-react';
 
 const Clients = () => {
@@ -13,7 +13,7 @@ const Clients = () => {
 
     const fetchClients = async () => {
         try {
-            const res = await axios.get(import.meta.env.VITE_API_URL + '/sales');
+            const res = await api.get('/sales');
             const sales = res.data;
 
             // Process sales to extract unique clients

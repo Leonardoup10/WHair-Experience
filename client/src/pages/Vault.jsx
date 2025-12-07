@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Lock, ArrowUpCircle, ArrowDownCircle, History, AlertCircle } from 'lucide-react';
 
 const Vault = () => {
@@ -22,7 +22,7 @@ const Vault = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(import.meta.env.VITE_API_URL + '/vault');
+            const res = await api.get('/vault');
             setBalance(res.data.balance);
             setTransactions(res.data.transactions);
         } catch (error) {
@@ -36,7 +36,7 @@ const Vault = () => {
         e.preventDefault();
         setProcessing(true);
         try {
-            await axios.post(import.meta.env.VITE_API_URL + '/vault', {
+            await api.post('/vault', {
                 type: modalType,
                 amount: formData.amount,
                 category: formData.category,

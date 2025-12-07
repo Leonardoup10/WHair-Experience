@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { DollarSign, Calendar, Plus, CheckCircle, Clock, AlertCircle, Trash2 } from 'lucide-react';
 
 const Expenses = () => {
@@ -23,7 +23,7 @@ const Expenses = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(import.meta.env.VITE_API_URL + '/transactions');
+            const res = await api.get('/transactions');
             setTransactions(res.data);
         } catch (error) {
             console.error('Error fetching transactions:', error);
@@ -36,7 +36,7 @@ const Expenses = () => {
         e.preventDefault();
         setProcessing(true);
         try {
-            await axios.post(import.meta.env.VITE_API_URL + '/transactions', {
+            await api.post('/transactions', {
                 type: 'OUT',
                 description: formData.description,
                 amount: formData.amount,
@@ -66,7 +66,7 @@ const Expenses = () => {
         if (!window.confirm(`Confirmar pagamento de € ${amount}?`)) return;
 
         try {
-            await axios.put(`http://localhost:3001/transactions/${id}`, {
+            await api.put(`/transactions/${id}`, {
                 status: 'COMPLETED',
                 payment_method: 'Numerário', // Default to Cash for now, could be a modal
                 date: new Date() // Set payment date to now
@@ -82,7 +82,7 @@ const Expenses = () => {
     const handleDelete = async (id) => {
         if (!window.confirm('Tem certeza que deseja excluir esta despesa?')) return;
         try {
-            await axios.delete(`http://localhost:3001/transactions/${id}`);
+            await api.delete(`/transactions/${id}`);
             fetchData();
         } catch (error) {
             console.error('Error deleting:', error);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useAuth } from '../context/AuthContext';
 import { DollarSign, ArrowUpCircle, ArrowDownCircle, Trash2, Plus, Minus, Calendar } from 'lucide-react';
 
@@ -24,9 +24,9 @@ const CashFlow = () => {
     const fetchData = async () => {
         try {
             const [transRes, salesRes, balanceRes] = await Promise.all([
-                axios.get(import.meta.env.VITE_API_URL + '/transactions'),
-                axios.get(import.meta.env.VITE_API_URL + '/sales'),
-                axios.get(import.meta.env.VITE_API_URL + '/cash-flow/balance')
+                api.get('/transactions'),
+                api.get('/sales'),
+                api.get('/cash-flow/balance')
             ]);
             setTransactions(transRes.data);
             setSales(salesRes.data);
@@ -40,7 +40,7 @@ const CashFlow = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await axios.post(import.meta.env.VITE_API_URL + '/transactions', {
+            await api.post('/transactions', {
                 ...formData,
                 user_id: user?.id
             });
@@ -57,7 +57,7 @@ const CashFlow = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Tem certeza que deseja excluir esta movimentação?')) {
             try {
-                await axios.delete(`http://localhost:3001/transactions/${id}`);
+                await api.delete(`/transactions/${id}`);
                 fetchData();
             } catch (error) {
                 console.error('Error deleting transaction:', error);

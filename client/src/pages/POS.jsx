@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { ShoppingBag, CheckCircle, Scissors, Package, User, CreditCard, DollarSign, Users, Plus, X } from 'lucide-react';
 
 const POS = () => {
@@ -28,9 +28,9 @@ const POS = () => {
     const fetchData = async () => {
         try {
             const [profRes, servRes, prodRes] = await Promise.all([
-                axios.get(import.meta.env.VITE_API_URL + '/professionals'),
-                axios.get(import.meta.env.VITE_API_URL + '/services'),
-                axios.get(import.meta.env.VITE_API_URL + '/products')
+                api.get('/professionals'),
+                api.get('/services'),
+                api.get('/products')
             ]);
             setProfessionals(profRes.data);
             setServices(servRes.data);
@@ -53,7 +53,7 @@ const POS = () => {
         setLoading(true);
         setSuccess(false);
         try {
-            await axios.post(import.meta.env.VITE_API_URL + '/sales', {
+            await api.post('/sales', {
                 professional_id: formData.professional_id,
                 type: formData.type,
                 item_id: formData.item_id,
@@ -93,7 +93,7 @@ const POS = () => {
     const handleCreateService = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(import.meta.env.VITE_API_URL + '/services', newService);
+            const res = await api.post('/services', newService);
             setServices([res.data, ...services]);
             setFormData({
                 ...formData,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Plus, Save, User, Percent, Edit2, Trash2, X, Power } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -20,7 +20,7 @@ const Professionals = () => {
 
     const fetchProfessionals = async () => {
         try {
-            const res = await axios.get(import.meta.env.VITE_API_URL + '/professionals');
+            const res = await api.get('/professionals');
             setProfessionals(res.data);
         } catch (error) {
             console.error('Error fetching professionals:', error);
@@ -40,9 +40,9 @@ const Professionals = () => {
             };
 
             if (editingId) {
-                await axios.put(`http://localhost:3001/professionals/${editingId}`, dataToSend);
+                await api.put(`/professionals/${editingId}`, dataToSend);
             } else {
-                await axios.post(import.meta.env.VITE_API_URL + '/professionals', dataToSend);
+                await api.post('/professionals', dataToSend);
             }
 
             setFormData({ name: '', service_commission_rate: '', product_commission_rate: '' });
@@ -68,7 +68,7 @@ const Professionals = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Tem certeza que deseja deletar este profissional?')) {
             try {
-                await axios.delete(`http://localhost:3001/professionals/${id}`);
+                await api.delete(`/professionals/${id}`);
                 fetchProfessionals();
             } catch (error) {
                 console.error('Error deleting professional:', error);
@@ -183,7 +183,7 @@ const Professionals = () => {
                             <button
                                 onClick={async () => {
                                     try {
-                                        await axios.put(`http://localhost:3001/professionals/${p.id}`, { ...p, active: !p.active });
+                                        await api.put(`/professionals/${p.id}`, { ...p, active: !p.active });
                                         fetchProfessionals();
                                     } catch (error) {
                                         console.error('Error toggling status:', error);

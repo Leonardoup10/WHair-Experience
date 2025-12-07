@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Package, Scissors, Plus, Search, Trash2, Edit2, X, Save } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -20,7 +20,7 @@ const Catalog = () => {
     const fetchItems = async () => {
         try {
             const endpoint = activeTab === 'services' ? 'services' : 'products';
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/${endpoint}`);
+            const res = await api.get(`/${endpoint}`);
             setItems(res.data);
         } catch (error) {
             console.error('Error fetching items:', error);
@@ -35,9 +35,9 @@ const Catalog = () => {
             const dataToSend = { ...formData, updated_by: user?.id };
 
             if (editingId) {
-                await axios.put(`${import.meta.env.VITE_API_URL}/${endpoint}/${editingId}`, dataToSend);
+                await api.put(`/${endpoint}/${editingId}`, dataToSend);
             } else {
-                await axios.post(`${import.meta.env.VITE_API_URL}/${endpoint}`, dataToSend);
+                await api.post(`/${endpoint}`, dataToSend);
             }
 
             handleCancel();
@@ -63,7 +63,7 @@ const Catalog = () => {
         if (window.confirm('Tem certeza que deseja deletar este item?')) {
             try {
                 const endpoint = activeTab === 'services' ? 'services' : 'products';
-                await axios.delete(`${import.meta.env.VITE_API_URL}/${endpoint}/${id}`);
+                await api.delete(`/${endpoint}/${id}`);
                 fetchItems();
             } catch (error) {
                 console.error('Error deleting item:', error);
