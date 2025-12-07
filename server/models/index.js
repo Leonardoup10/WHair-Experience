@@ -30,6 +30,8 @@ const Service = require('./service.model')(sequelize);
 const Product = require('./product.model')(sequelize);
 const Sale = require('./sale.model')(sequelize);
 const User = require('./user.model')(sequelize);
+const Transaction = require('./transaction.model')(sequelize);
+const VaultTransaction = require('./vault_transaction.model')(sequelize);
 
 // Relationships
 Sale.belongsTo(Professional, { foreignKey: 'professional_id' });
@@ -40,5 +42,7 @@ module.exports = {
     Service,
     Product,
     Sale,
-    User
+    User,
+    Transaction,
+    VaultTransaction
 };
