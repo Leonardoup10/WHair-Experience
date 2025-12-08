@@ -1,0 +1,11 @@
+[ERROR MESSAGE]
+invalid input value for enum "enum_Users_role": "RECEPÇÃO"
+
+[STACK]
+Error
+    at Query.run (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\sequelize\lib\sequelize.js:315:28
+    at async PostgresQueryInterface.bulkInsert (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\sequelize\lib\dialects\abstract\query-interface.js:346:21)
+    at async recursiveBulkCreate (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\sequelize\lib\model.js:1697:25)
+    at async User.bulkCreate (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\sequelize\lib\model.js:1786:12)
+    at async migrate (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\migrate_data.js:107:13)

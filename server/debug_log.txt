@@ -1,0 +1,123 @@
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: DATABASE_URL: postgresql...
+LOG: Error requiring database: TypeError: Cannot read properties of undefined (reading 'searchParams')
+    at parse (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\pg-connection-string\index.js:39:30)
+    at new Sequelize (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\sequelize\lib\sequelize.js:94:66)
+    at Object.<anonymous> (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\database.js:13:15)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+    at Module.require (node:internal/modules/cjs/loader:1504:12)
+LOG: DONE
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: DATABASE_URL (JSON): "postgresql://postgres:["
+LOG: First 5 chars: postg
+LOG: Last 5 chars: res:[
+LOG: Error requiring database: TypeError: Cannot read properties of undefined (reading 'searchParams')
+    at parse (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\pg-connection-string\index.js:39:30)
+    at new Sequelize (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\sequelize\lib\sequelize.js:94:66)
+    at Object.<anonymous> (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\database.js:13:15)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+    at Module.require (node:internal/modules/cjs/loader:1504:12)
+LOG: DONE
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: DATABASE_URL (JSON): "postgresql://postgres:"
+LOG: First 5 chars: postg
+LOG: Last 5 chars: gres:
+LOG: Database Loaded.
+LOG: Sequelize Dialect: postgres
+LOG: DONE
+LOG: Connection Failed: getaddrinfo ENOTFOUND postgres
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: DATABASE_URL (JSON): undefined
+LOG: Database Loaded.
+LOG: Sequelize Dialect: sqlite
+LOG: DONE
+LOG: Connection OK!
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: DATABASE_URL (JSON): undefined
+LOG: Database Loaded.
+LOG: Sequelize Dialect: sqlite
+LOG: DONE
+LOG: Connection OK!
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: DATABASE_URL (JSON): undefined
+LOG: .env size: 85
+LOG: Has DATABASE_URL=? false
+LOG: First 20 chars: postgresql://postgre
+LOG: Database Loaded.
+LOG: Sequelize Dialect: sqlite
+LOG: DONE
+LOG: Connection OK!
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: DATABASE_URL (JSON): "postgresql://postgres"
+LOG: First 5 chars: postg
+LOG: Last 5 chars: tgres
+LOG: Database Loaded.
+LOG: Sequelize Dialect: postgres
+LOG: DONE
+LOG: Connection Failed: getaddrinfo ENOTFOUND postgres
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: DATABASE_URL (JSON): "postgresql://postgres:"
+LOG: First 5 chars: postg
+LOG: Last 5 chars: gres:
+LOG: Database Loaded.
+LOG: Sequelize Dialect: postgres
+LOG: DONE
+LOG: Connection Failed: getaddrinfo ENOTFOUND postgres
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: DATABASE_URL (JSON): "postgresql://postgres:\""
+LOG: First 5 chars: postg
+LOG: Last 5 chars: res:"
+LOG: Error requiring database: TypeError: Cannot read properties of undefined (reading 'searchParams')
+    at parse (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\pg-connection-string\index.js:39:30)
+    at new Sequelize (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\sequelize\lib\sequelize.js:94:66)
+    at Object.<anonymous> (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\database.js:13:15)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+    at Module.require (node:internal/modules/cjs/loader:1504:12)
+LOG: DONE
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: Cleaned DATABASE_URL (JSON): "postgresql://postgres:\""
+LOG: First 5 chars: postg
+LOG: Last 5 chars: res:"
+LOG: Error requiring database: TypeError: Cannot read properties of undefined (reading 'searchParams')
+    at parse (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\pg-connection-string\index.js:39:30)
+    at new Sequelize (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\node_modules\sequelize\lib\sequelize.js:94:66)
+    at Object.<anonymous> (C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\database.js:13:15)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+    at Module.require (node:internal/modules/cjs/loader:1504:12)
+LOG: DONE
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: Cleaned DATABASE_URL (JSON): "postgresql://postgres:"
+LOG: First 5 chars: postg
+LOG: Last 5 chars: gres:
+LOG: Database Loaded.
+LOG: Sequelize Dialect: postgres
+LOG: DONE
+LOG: Connection Failed: getaddrinfo ENOTFOUND postgres
+LOG: Loading env from: C:\Users\leona\Documents\LEO\ESTUDOS\Python\DIO\beauty-salon-mvp\server\.env
+LOG: Cleaned DATABASE_URL (JSON): "postgresql://postgres.tfovigcvgsynoahdjcfk:#Le1035os!25.2@aws-1-eu-west-1.pooler.supabase.com:6543/postgres"
+LOG: First 5 chars: postg
+LOG: Last 5 chars: tgres
+LOG: Database Loaded.
+LOG: Sequelize Dialect: postgres
+LOG: DONE
+LOG: Connection Failed: getaddrinfo ENOTFOUND postgres.tfovigcvgsynoahdjcfk

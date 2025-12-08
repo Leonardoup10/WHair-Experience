@@ -1,6 +1,33 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-const { sequelize, User, Professional, Service, Product, Sale, Transaction, VaultTransaction } = require('./models');
+const fs = require('fs');
+
+const logFile = path.join(__dirname, 'migration_full.log');
+// Clear log
+fs.writeFileSync(logFile, '');
+
+const log = (msg) => {
+    // try to convert object to string if needed
+    if (typeof msg !== 'string') msg = JSON.stringify(msg, null, 2);
+    // write to stdout
+    process.stdout.write(msg + '\n');
+    // append to file
+    fs.appendFileSync(logFile, msg + '\n');
+};
+const error = (msg) => {
+    if (msg instanceof Error) {
+        msg = '[ERROR OBJECT] ' + msg.message + '\n' + msg.stack;
+    } else if (typeof msg !== 'string') {
+        msg = JSON.stringify(msg, null, 2);
+    }
+    process.stderr.write(msg + '\n');
+    fs.appendFileSync(logFile, '[ERROR] ' + msg + '\n');
+};
+
+console.log = log;
+console.error = error;
+// Models will be required dynamically after .env load
+// const { sequelize, User, Professional, Service, Product, Sale, Transaction, VaultTransaction } = require('./models');
 
 // Connect to the OLD SQLite database
 const sqliteDbPath = path.join(__dirname, 'database_v2.sqlite');
@@ -9,14 +36,55 @@ const db = new sqlite3.Database(sqliteDbPath, sqlite3.OPEN_READONLY, (err) => {
         console.error('Error opening SQLite database:', err.message);
         process.exit(1);
     }
-    console.log('Connected to SQLite database.');
+    console.log('Connected to source SQLite database:', sqliteDbPath);
 });
 
 async function migrate() {
+    let sequelize;
     try {
-        // 1. Authenticate with Postgres (Supabase) via Sequelize
+        // ... (env loading) ...
+
+        const envPath = path.join(__dirname, '.env');
+        const result = require('dotenv').config({ path: envPath });
+
+        if (result.error) {
+            console.error('❌ Error loading .env file:', result.error.message);
+            console.log('Ensure .env exists in:', envPath);
+        } else {
+            console.log('✅ .env loaded from:', envPath);
+            // Sanitize DATABASE_URL immediately
+            if (process.env.DATABASE_URL) {
+                process.env.DATABASE_URL = process.env.DATABASE_URL.trim().replace(/^['"]+|['"]+$/g, '');
+            }
+            console.log('🔑 Found keys in .env:', Object.keys(result.parsed || {}));
+
+
+            // Debug raw content header
+            const fs = require('fs');
+            try {
+                const raw = fs.readFileSync(envPath, 'utf8');
+                console.log('📄 Raw header (first 50 chars):', raw.substring(0, 50).replace(/\r/g, '\\r').replace(/\n/g, '\\n'));
+            } catch (e) { }
+        }
+
+        if (!process.env.DATABASE_URL) {
+            console.error('❌ DATABASE_URL is missing! Migration aborted to prevent writing to local SQLite.');
+            process.exit(1);
+        }
+
+        // Re-import models to pick up the new env var
+        const models = require('./models.js');
+        sequelize = models.sequelize;
+        const { User, Professional, Service, Product, Sale, Transaction, VaultTransaction } = models;
+
         await sequelize.authenticate();
-        console.log('Connected to Supabase (Postgres).');
+        const config = sequelize.connectionManager.config;
+        console.log(`✅ Connected to TARGET DB: ${config.database} on ${config.host} (${sequelize.getDialect()})`);
+
+        if (sequelize.getDialect() !== 'postgres') {
+            console.error('❌ Connected to SQLite! Aborting migration to Supabase.');
+            process.exit(1);
+        }
 
         // Optional: Force sync to ensure tables exist (and maybe clear them?)
         // WARNING: This clears the Supabase DB to ensure clean import of IDs
@@ -40,7 +108,20 @@ async function migrate() {
         console.log('Migrating Users...');
         const users = await getAll('Users');
         if (users.length > 0) {
-            await User.bulkCreate(users);
+            console.log(`Migrating Users... (${users.length} records)`);
+            const mappedUsers = users.map(u => {
+                let role = u.role ? u.role.toUpperCase() : 'RECEPTION';
+                if (role === 'RECEPÇÃO' || role === 'RECEPCAO') role = 'RECEPTION';
+                if (role === 'GERENTE') role = 'MANAGER';
+                if (role === 'ADMINISTRADOR') role = 'ADMIN';
+
+                if (!['ADMIN', 'MANAGER', 'RECEPTION'].includes(role)) {
+                    console.warn(`WARNING: Unknown role "${role}" mapped to RECEPTION`);
+                    role = 'RECEPTION';
+                }
+                return { ...u, role };
+            });
+            await User.bulkCreate(mappedUsers);
         }
         console.log(`Migrated ${users.length} Users.`);
 
@@ -111,9 +192,13 @@ async function migrate() {
 
     } catch (error) {
         console.error('❌ Migration failed:', error);
+        const fs = require('fs');
+        fs.writeFileSync(path.join(__dirname, 'error_summary.txt'),
+            '[ERROR MESSAGE]\n' + error.message + '\n\n[STACK]\n' + error.stack
+        );
     } finally {
         db.close();
-        await sequelize.close();
+        if (sequelize) await sequelize.close();
     }
 }
 
