@@ -16,17 +16,19 @@
     "routes": [
         {
             "src": "/api/(.*)",
-            "dest": "/server/index.js"
+            "dest": "/server/index.js",
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
+            }
+        },
+        {
+            "handle": "filesystem"
         },
         {
             "src": "/(.*)",
-            "dest": "/client/$1"
-        }
-    ],
-    "rewrites": [
-        {
-            "source": "/api/(.*)",
-            "destination": "/server/index.js"
+            "dest": "/client/index.html"
         }
     ]
 }
