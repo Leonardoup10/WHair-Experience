@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://floppy-houses-smell.loca.lt', // LocalTunnel URL
-    timeout: 10000,
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001',
+    timeout: 30000, // Increased timeout for cold starts
     headers: {
         'Content-Type': 'application/json'
     }

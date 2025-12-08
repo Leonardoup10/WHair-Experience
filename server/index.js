@@ -9,6 +9,14 @@ const PORT = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
+// Vercel Compatibility: Handle requests with /api prefix
+app.use((req, res, next) => {
+    if (req.url.startsWith('/api')) {
+        req.url = req.url.replace('/api', '');
+    }
+    next();
+});
+
 console.log('User model loaded:', !!User);
 
 // Sync Database
@@ -464,7 +472,11 @@ app.post('/vault', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
 
